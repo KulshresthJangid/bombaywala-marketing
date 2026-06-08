@@ -132,13 +132,10 @@ export default function ContactPage() {
       {/* ── Contact Grid ─────────────────────────────── */}
       <section style={{ padding: "2rem 1.5rem 6rem", background: "var(--color-bg)" }}>
         <div
+          className="contact-grid"
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 1.6fr",
-            gap: "4rem",
-            alignItems: "flex-start",
           }}
         >
           {/* ── Info Panel ── */}
@@ -363,13 +360,7 @@ export default function ContactPage() {
                     Send Us a Message
                   </div>
 
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
-                      gap: "1rem",
-                    }}
-                  >
+                  <div className="form-row">
                     <div>
                       <label
                         style={{
@@ -444,13 +435,7 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
-                      gap: "1rem",
-                    }}
-                  >
+                  <div className="form-row">
                     <div>
                       <label
                         style={{

@@ -84,14 +84,7 @@ export default function Footer() {
         }}
       >
         {/* 4-col grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "2fr 1fr 1fr 1fr",
-            gap: "3rem",
-          }}
-          className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-        >
+        <div className="footer-grid">
           {/* Brand + Contact */}
           <div>
             <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1rem" }}>

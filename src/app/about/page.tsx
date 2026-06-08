@@ -54,14 +54,7 @@ export default function AboutPage() {
           }}
         />
         <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "5rem",
-              alignItems: "center",
-            }}
-          >
+          <div className="hero-grid-5gap">
             <FadeInLeft>
               <span className="overline">Our Story</span>
               <h1

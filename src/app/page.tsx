@@ -89,16 +89,12 @@ export default function HomePage() {
         />
 
         <div
+          className="hero-grid"
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
             width: "100%",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
           }}
-          className="grid-cols-1 lg:grid-cols-2"
         >
           {/* Left */}
           <div>

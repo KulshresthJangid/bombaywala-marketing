@@ -48,14 +48,11 @@ export default function PPCPage() {
           }}
         />
         <div
+          className="hero-grid"
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
             position: "relative",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
           }}
         >
           <FadeInLeft>

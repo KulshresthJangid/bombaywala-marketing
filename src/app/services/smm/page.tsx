@@ -27,7 +27,7 @@ export default function SMMPage() {
       {/* ── Hero ─────────────────────────────────────── */}
       <section style={{ padding: "120px 1.5rem 80px", background: "var(--color-bg)", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: 0, right: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,85,0,0.05) 0%, transparent 65%)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
+        <div className="hero-grid" style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
           <FadeInLeft>
             <span className="overline">Marketing Services</span>
             <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.25rem, 5vw, 3.75rem)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.02em", color: "var(--color-text)", marginTop: "0.75rem", marginBottom: "1.25rem" }}>

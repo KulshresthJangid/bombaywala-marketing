@@ -124,15 +124,7 @@ export default function MarketingServicesPage() {
               const Icon = iconMap[service.icon] || ShoppingCart;
               return (
                 <StaggerItem key={service.id}>
-                  <div
-                    className="metric-card"
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "auto 1fr auto",
-                      gap: "2rem",
-                      alignItems: "flex-start",
-                    }}
-                  >
+                  <div className="metric-card service-row">
                     {/* Icon + number */}
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", paddingTop: "0.25rem" }}>
                       <div
