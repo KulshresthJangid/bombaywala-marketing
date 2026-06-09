@@ -67,26 +67,26 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
+        <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.625rem" }}>
           <span
             style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.75rem",
-              fontWeight: 800,
+              fontFamily: "var(--font-script)",
+              fontSize: "2.1rem",
+              fontWeight: 700,
               color: "var(--color-orange)",
-              letterSpacing: "-0.03em",
               lineHeight: 1,
+              letterSpacing: "-0.01em",
             }}
           >
             bw
           </span>
           <span
             style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "0.65rem",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.58rem",
               fontWeight: 700,
-              color: "var(--color-text)",
-              letterSpacing: "0.18em",
+              color: "var(--color-text-muted)",
+              letterSpacing: "0.28em",
               textTransform: "uppercase",
             }}
           >

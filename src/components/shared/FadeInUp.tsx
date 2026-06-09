@@ -13,10 +13,10 @@ interface AnimProps {
   style?: React.CSSProperties;
 }
 
-export function FadeInUp({ children, delay = 0, duration = 0.6, className, style }: AnimProps) {
+export function FadeInUp({ children, delay = 0, duration = 0.8, className, style }: AnimProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration, delay, ease: EASE }}
@@ -28,7 +28,7 @@ export function FadeInUp({ children, delay = 0, duration = 0.6, className, style
   );
 }
 
-export function FadeIn({ children, delay = 0, duration = 0.6, className, style }: AnimProps) {
+export function FadeIn({ children, delay = 0, duration = 0.8, className, style }: AnimProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -43,10 +43,10 @@ export function FadeIn({ children, delay = 0, duration = 0.6, className, style }
   );
 }
 
-export function FadeInLeft({ children, delay = 0, duration = 0.6, className, style }: AnimProps) {
+export function FadeInLeft({ children, delay = 0, duration = 0.8, className, style }: AnimProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -32 }}
+      initial={{ opacity: 0, x: -40 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration, delay, ease: EASE }}
@@ -58,10 +58,10 @@ export function FadeInLeft({ children, delay = 0, duration = 0.6, className, sty
   );
 }
 
-export function FadeInRight({ children, delay = 0, duration = 0.6, className, style }: AnimProps) {
+export function FadeInRight({ children, delay = 0, duration = 0.8, className, style }: AnimProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 32 }}
+      initial={{ opacity: 0, x: 40 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration, delay, ease: EASE }}

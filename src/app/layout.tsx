@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Playfair_Display, Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/config";
 import Navbar from "@/components/layout/Navbar";
@@ -9,16 +9,23 @@ import PageLoader from "@/components/layout/PageLoader";
 import PageTransition from "@/components/layout/PageTransition";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const dancingScript = Dancing_Script({
+  variable: "--font-dancing",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -41,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfairDisplay.variable} ${inter.variable} ${dancingScript.variable}`}>
       <body>
         <PageLoader />
         <TopLoader />

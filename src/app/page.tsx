@@ -2,20 +2,10 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import {
-  ShoppingCart,
-  TrendingUp,
-  Share2,
-  Zap,
-  Search,
-  Users,
-  Camera,
-  Store,
-  Globe,
-  Smartphone,
-  Wrench,
-  Code2,
+  ShoppingCart, TrendingUp, Share2, Zap, Search, Users,
+  Camera, Store, Globe, Smartphone, Wrench, Code2, ArrowRight,
 } from "lucide-react";
 import { siteConfig, marketingServices, techServices, caseStudies, clients, testimonials } from "@/lib/config";
 import ResultsTicker from "@/components/shared/ResultsTicker";
@@ -33,28 +23,26 @@ const rotatingStats = [
 ];
 
 const iconMap: Record<string, React.ElementType> = {
-  ShoppingCart,
-  TrendingUp,
-  Share2,
-  Zap,
-  Search,
-  Users,
-  Camera,
-  Store,
-  Globe,
-  Smartphone,
-  Wrench,
-  Code2,
+  ShoppingCart, TrendingUp, Share2, Zap, Search, Users,
+  Camera, Store, Globe, Smartphone, Wrench, Code2,
 };
 
 export default function HomePage() {
   const [statIdx, setStatIdx] = useState(0);
   const [activeTab, setActiveTab] = useState<"marketing" | "tech">("marketing");
 
+  const { scrollY } = useScroll();
+  const rawBgY = useTransform(scrollY, [0, 900], [0, -220]);
+  const rawWatermarkY = useTransform(scrollY, [0, 900], [0, -150]);
+  const rawContentY = useTransform(scrollY, [0, 900], [0, -55]);
+  const bgGlowY = useSpring(rawBgY, { stiffness: 80, damping: 20 });
+  const watermarkY = useSpring(rawWatermarkY, { stiffness: 80, damping: 20 });
+  const contentY = useSpring(rawContentY, { stiffness: 80, damping: 20 });
+
   useEffect(() => {
     const interval = setInterval(() => {
       setStatIdx((i) => (i + 1) % rotatingStats.length);
-    }, 2500);
+    }, 2800);
     return () => clearInterval(interval);
   }, []);
 
@@ -68,235 +56,276 @@ export default function HomePage() {
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
-          padding: "120px 1.5rem 80px",
+          padding: "130px 1.5rem 90px",
           background: "var(--color-bg)",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        {/* Background glow */}
-        <div
+        {/* Parallax background glow — far layer */}
+        <motion.div
           style={{
+            y: bgGlowY,
             position: "absolute",
-            top: "20%",
-            left: "-10%",
-            width: "600px",
-            height: "600px",
+            top: "10%",
+            left: "-15%",
+            width: "700px",
+            height: "700px",
             borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(255,85,0,0.06) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(255,85,0,0.07) 0%, transparent 65%)",
+            pointerEvents: "none",
+          }}
+        />
+        <motion.div
+          style={{
+            y: bgGlowY,
+            position: "absolute",
+            bottom: "5%",
+            right: "-10%",
+            width: "500px",
+            height: "500px",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(197,155,60,0.04) 0%, transparent 65%)",
             pointerEvents: "none",
           }}
         />
 
-        <div
-          className="hero-grid"
+        {/* Parallax script watermark — mid layer */}
+        <motion.div
           style={{
+            y: watermarkY,
+            position: "absolute",
+            top: "-8%",
+            right: "-5%",
+            pointerEvents: "none",
+            userSelect: "none",
+            zIndex: 0,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-script)",
+              fontSize: "52vw",
+              fontWeight: 700,
+              color: "rgba(255, 85, 0, 0.026)",
+              lineHeight: 1,
+              display: "block",
+            }}
+          >
+            bw
+          </span>
+        </motion.div>
+
+        {/* Hero content — foreground layer */}
+        <motion.div
+          style={{
+            y: contentY,
             maxWidth: "1200px",
             margin: "0 auto",
             width: "100%",
+            position: "relative",
+            zIndex: 1,
           }}
         >
-          {/* Left */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: EASE }}
-              style={{ marginBottom: "1.25rem" }}
-            >
-              <span className="overline">Jaipur&apos;s Performance-First Agency</span>
-            </motion.div>
+          <div className="hero-grid">
+            {/* Left */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: EASE }}
+                style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}
+              >
+                <span className="orange-rule" />
+                <span className="overline">Jaipur&apos;s Performance-First Agency</span>
+              </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-                fontWeight: 800,
-                lineHeight: 1.05,
-                letterSpacing: "-0.02em",
-                marginBottom: "1.5rem",
-                color: "var(--color-text)",
-              }}
-            >
-              We Don&apos;t Do Marketing.{" "}
-              <br />
-              <span style={{ color: "var(--color-orange)" }}>We Drive Results.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25, ease: EASE }}
-              style={{
-                fontSize: "1.05rem",
-                color: "var(--color-text-muted)",
-                lineHeight: 1.7,
-                maxWidth: "480px",
-                marginBottom: "2.5rem",
-              }}
-            >
-              {siteConfig.description}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.38, ease: EASE }}
-              style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
-            >
-              <Link href="/case-studies" className="btn-orange">
-                See Our Results
-              </Link>
-              <Link href="/contact" className="btn-outline-orange">
-                Get a Quote
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Right — rotating stat */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
-              style={{
-                background: "var(--color-surface)",
-                border: "1px solid var(--color-border)",
-                padding: "3rem 3.5rem",
-                textAlign: "center",
-                position: "relative",
-                minWidth: "280px",
-              }}
-            >
-              <div
+              <motion.h1
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
                 style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: "3px",
-                  background: "linear-gradient(90deg, var(--color-orange-dark), var(--color-orange), var(--color-orange-light))",
-                }}
-              />
-              <div
-                style={{
-                  fontSize: "0.65rem",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(2.75rem, 6vw, 5rem)",
                   fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "var(--color-muted)",
-                  marginBottom: "1rem",
+                  lineHeight: 1.05,
+                  letterSpacing: "-0.02em",
+                  marginBottom: "1.75rem",
+                  color: "var(--color-text)",
                 }}
               >
-                Real Client Results
-              </div>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={statIdx}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -16 }}
-                  transition={{ duration: 0.4, ease: EASE }}
-                >
-                  <div
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "4rem",
-                      fontWeight: 800,
-                      color: "var(--color-orange)",
-                      lineHeight: 1,
-                      letterSpacing: "-0.02em",
-                    }}
-                  >
-                    {rotatingStats[statIdx].number}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "0.875rem",
-                      color: "var(--color-text-muted)",
-                      marginTop: "0.75rem",
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {rotatingStats[statIdx].label}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+                We Don&apos;t Do Marketing.{" "}
+                <br />
+                <em style={{ color: "var(--color-orange)", fontStyle: "italic" }}>We Drive Results.</em>
+              </motion.h1>
 
-              {/* Dots */}
-              <div style={{ display: "flex", justifyContent: "center", gap: "0.4rem", marginTop: "1.5rem" }}>
-                {rotatingStats.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setStatIdx(i)}
-                    style={{
-                      width: i === statIdx ? "20px" : "6px",
-                      height: "6px",
-                      borderRadius: "3px",
-                      background: i === statIdx ? "var(--color-orange)" : "var(--color-border-light)",
-                      border: "none",
-                      cursor: "pointer",
-                      transition: "width 0.3s, background 0.3s",
-                      padding: 0,
-                    }}
-                  />
-                ))}
-              </div>
-            </motion.div>
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
+                style={{
+                  fontSize: "1.05rem",
+                  color: "var(--color-text-muted)",
+                  lineHeight: 1.75,
+                  maxWidth: "460px",
+                  marginBottom: "2.75rem",
+                }}
+              >
+                {siteConfig.description}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.38, ease: EASE }}
+                style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
+              >
+                <Link href="/case-studies" className="btn-orange">
+                  See Our Results <ArrowRight size={14} />
+                </Link>
+                <Link href="/contact" className="btn-outline-orange">
+                  Get a Quote
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Right — rotating stat card */}
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 24 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
+                style={{
+                  background: "var(--color-surface)",
+                  border: "1px solid var(--color-border-light)",
+                  padding: "3rem 3.5rem",
+                  textAlign: "center",
+                  position: "relative",
+                  minWidth: "280px",
+                  boxShadow: "0 40px 120px rgba(0,0,0,0.4)",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute", top: 0, left: 0, right: 0, height: "2px",
+                    background: "linear-gradient(90deg, var(--color-orange-dark), var(--color-orange), var(--color-gold))",
+                  }}
+                />
+                <div
+                  style={{
+                    fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.2em",
+                    textTransform: "uppercase", color: "var(--color-muted)", marginBottom: "1.25rem",
+                  }}
+                >
+                  Real Client Results
+                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={statIdx}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -18 }}
+                    transition={{ duration: 0.45, ease: EASE }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "4.5rem",
+                        fontWeight: 700,
+                        color: "var(--color-orange)",
+                        lineHeight: 1,
+                        letterSpacing: "-0.02em",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      {rotatingStats[statIdx].number}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "0.825rem", color: "var(--color-text-muted)",
+                        marginTop: "0.875rem", lineHeight: 1.5,
+                        fontFamily: "var(--font-sans)",
+                      }}
+                    >
+                      {rotatingStats[statIdx].label}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                <div style={{ display: "flex", justifyContent: "center", gap: "0.4rem", marginTop: "1.75rem" }}>
+                  {rotatingStats.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setStatIdx(i)}
+                      style={{
+                        width: i === statIdx ? "24px" : "6px",
+                        height: "2px",
+                        borderRadius: "2px",
+                        background: i === statIdx ? "var(--color-orange)" : "var(--color-border-light)",
+                        border: "none", cursor: "pointer",
+                        transition: "width 0.35s, background 0.35s",
+                        padding: 0,
+                      }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Results Ticker ────────────────────────────── */}
       <ResultsTicker />
 
       {/* ── Services Grid ─────────────────────────────── */}
-      <section style={{ padding: "6rem 1.5rem", background: "var(--color-bg)" }}>
+      <section style={{ padding: "7rem 1.5rem", background: "var(--color-bg)" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <FadeInUp>
-            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
               <span className="overline">What We Do</span>
               <h2
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
-                  fontWeight: 800,
-                  marginTop: "0.75rem",
+                  fontSize: "clamp(2rem, 4vw, 3rem)",
+                  fontWeight: 700,
+                  marginTop: "0.875rem",
                   letterSpacing: "-0.02em",
                   color: "var(--color-text)",
+                  fontStyle: "italic",
                 }}
               >
                 Services Built for Growth
               </h2>
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "1.25rem" }}>
+                <span className="orange-rule" />
+              </div>
             </div>
           </FadeInUp>
 
           {/* Tabs */}
           <FadeIn>
-            <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "2.5rem" }}>
+            <div style={{ display: "flex", justifyContent: "center", gap: "0", marginBottom: "3rem" }}>
               {(["marketing", "tech"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   style={{
-                    padding: "0.625rem 1.5rem",
+                    padding: "0.75rem 2rem",
                     fontFamily: "var(--font-sans)",
-                    fontSize: "0.8rem",
+                    fontSize: "0.72rem",
                     fontWeight: 700,
-                    letterSpacing: "0.06em",
+                    letterSpacing: "0.12em",
                     textTransform: "uppercase",
-                    border: "1.5px solid",
+                    border: "1px solid",
                     borderColor: activeTab === tab ? "var(--color-orange)" : "var(--color-border-light)",
                     background: activeTab === tab ? "var(--color-orange)" : "transparent",
                     color: activeTab === tab ? "#fff" : "var(--color-muted)",
                     cursor: "pointer",
-                    transition: "all 0.2s",
+                    transition: "all 0.3s",
                   }}
                 >
-                  {tab === "marketing" ? "Marketing" : "Tech"}
+                  {tab === "marketing" ? "Marketing" : "Tech & Dev"}
                 </button>
               ))}
             </div>
@@ -305,10 +334,10 @@ export default function HomePage() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35, ease: EASE }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.4, ease: EASE }}
             >
               <StaggerGrid
                 style={{
@@ -319,29 +348,20 @@ export default function HomePage() {
               >
                 {(activeTab === "marketing" ? marketingServices : techServices).map((service) => {
                   const Icon = iconMap[service.icon] || ShoppingCart;
-                  const href =
-                    activeTab === "marketing"
-                      ? (service as typeof marketingServices[0]).slug
-                      : "/services/tech";
+                  const href = activeTab === "marketing"
+                    ? (service as typeof marketingServices[0]).slug
+                    : "/services/tech";
                   return (
                     <StaggerItem key={service.id}>
                       <div
                         className="metric-card"
-                        style={{
-                          height: "100%",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "1rem",
-                        }}
+                        style={{ height: "100%", display: "flex", flexDirection: "column", gap: "1.25rem" }}
                       >
                         <div
                           style={{
-                            width: "44px",
-                            height: "44px",
+                            width: "48px", height: "48px",
                             background: "var(--color-orange-muted)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
+                            display: "flex", alignItems: "center", justifyContent: "center",
                           }}
                         >
                           <Icon size={20} color="var(--color-orange)" />
@@ -350,21 +370,16 @@ export default function HomePage() {
                           <div
                             style={{
                               fontFamily: "var(--font-display)",
-                              fontSize: "1.05rem",
-                              fontWeight: 700,
+                              fontSize: "1.1rem",
+                              fontWeight: 600,
                               color: "var(--color-text)",
-                              marginBottom: "0.375rem",
+                              marginBottom: "0.4rem",
+                              letterSpacing: "-0.01em",
                             }}
                           >
                             {service.title}
                           </div>
-                          <div
-                            style={{
-                              fontSize: "0.8rem",
-                              color: "var(--color-muted)",
-                              lineHeight: 1.6,
-                            }}
-                          >
+                          <div style={{ fontSize: "0.8rem", color: "var(--color-muted)", lineHeight: 1.65 }}>
                             {activeTab === "marketing"
                               ? (service as typeof marketingServices[0]).tagline
                               : (service as typeof techServices[0]).tagline}
@@ -374,14 +389,18 @@ export default function HomePage() {
                           href={href}
                           style={{
                             marginTop: "auto",
-                            fontSize: "0.75rem",
+                            fontSize: "0.72rem",
                             fontWeight: 700,
                             color: "var(--color-orange)",
                             textDecoration: "none",
-                            letterSpacing: "0.04em",
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.4rem",
                           }}
                         >
-                          Learn More →
+                          Learn More <ArrowRight size={12} />
                         </Link>
                       </div>
                     </StaggerItem>
@@ -396,27 +415,47 @@ export default function HomePage() {
       {/* ── By The Numbers ────────────────────────────── */}
       <section
         style={{
-          padding: "6rem 1.5rem",
+          padding: "7rem 1.5rem",
           background: "var(--color-surface)",
           borderTop: "1px solid var(--color-border)",
           borderBottom: "1px solid var(--color-border)",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <FadeInUp style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+        {/* Subtle background script */}
+        <div
+          style={{
+            position: "absolute", top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontFamily: "var(--font-script)",
+            fontSize: "40vw", fontWeight: 700,
+            color: "rgba(255, 85, 0, 0.018)",
+            lineHeight: 1, pointerEvents: "none", userSelect: "none",
+            whiteSpace: "nowrap",
+          }}
+        >
+          results.
+        </div>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
+          <FadeInUp style={{ textAlign: "center", marginBottom: "4rem" }}>
             <span className="overline">By The Numbers</span>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
-                fontWeight: 800,
-                marginTop: "0.75rem",
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                fontWeight: 700,
+                marginTop: "0.875rem",
                 letterSpacing: "-0.02em",
                 color: "var(--color-text)",
+                fontStyle: "italic",
               }}
             >
               Results That Compound
             </h2>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "1.25rem" }}>
+              <span className="orange-rule" />
+            </div>
           </FadeInUp>
 
           <div
@@ -427,40 +466,39 @@ export default function HomePage() {
             }}
           >
             {siteConfig.stats.map((stat) => (
-              <CountUpStat
-                key={stat.label}
-                value={stat.value}
-                suffix={stat.suffix}
-                label={stat.label}
-              />
+              <CountUpStat key={stat.label} value={stat.value} suffix={stat.suffix} label={stat.label} />
             ))}
           </div>
         </div>
       </section>
 
       {/* ── Featured Case Studies ─────────────────────── */}
-      <section style={{ padding: "6rem 1.5rem", background: "var(--color-bg)" }}>
+      <section style={{ padding: "7rem 1.5rem", background: "var(--color-bg)" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <FadeInUp style={{ marginBottom: "3rem" }}>
+          <FadeInUp style={{ marginBottom: "3.5rem" }}>
             <span className="overline">Case Studies</span>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
-                fontWeight: 800,
-                marginTop: "0.75rem",
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                fontWeight: 700,
+                marginTop: "0.875rem",
                 letterSpacing: "-0.02em",
                 color: "var(--color-text)",
+                fontStyle: "italic",
               }}
             >
               Real Brands. Real Results.
             </h2>
+            <div style={{ marginTop: "1.25rem" }}>
+              <span className="orange-rule" />
+            </div>
           </FadeInUp>
 
           <StaggerGrid
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
               gap: "1.5rem",
             }}
           >
@@ -470,72 +508,61 @@ export default function HomePage() {
                   style={{
                     background: "var(--color-surface)",
                     border: "1px solid var(--color-border)",
-                    padding: "2rem",
+                    padding: "2.25rem",
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    gap: "1rem",
-                    transition: "border-color 0.2s, box-shadow 0.2s",
-                    cursor: "default",
+                    gap: "1.25rem",
+                    transition: "border-color 0.35s, box-shadow 0.35s, transform 0.35s",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.borderColor = "var(--color-orange)";
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 24px rgba(255,85,0,0.15)";
+                    (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,85,0,0.5)";
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 24px 80px rgba(255,85,0,0.1)";
+                    (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLDivElement).style.borderColor = "var(--color-border)";
                     (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                    (e.currentTarget as HTMLDivElement).style.transform = "none";
                   }}
                 >
-                  {/* Client name + industry */}
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "1.2rem",
-                        fontWeight: 700,
-                        color: "var(--color-text)",
-                      }}
-                    >
-                      {cs.client}
-                    </div>
-                    <span className="tag-pill" style={{ marginTop: "0.4rem" }}>{cs.industry}</span>
-                  </div>
-
-                  {/* Big result */}
                   <div
                     style={{
                       fontFamily: "var(--font-display)",
-                      fontSize: "1.5rem",
-                      fontWeight: 800,
+                      fontSize: "1.25rem",
+                      fontWeight: 600,
+                      color: "var(--color-text)",
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    {cs.client}
+                  </div>
+                  <span className="tag-pill">{cs.industry}</span>
+
+                  <div
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "1.75rem",
+                      fontWeight: 700,
                       color: "var(--color-orange)",
-                      lineHeight: 1.2,
+                      lineHeight: 1.1,
+                      fontStyle: "italic",
                     }}
                   >
                     {cs.result}
                   </div>
 
-                  {/* Challenge */}
-                  <p
-                    style={{
-                      fontSize: "0.8rem",
-                      color: "var(--color-muted)",
-                      lineHeight: 1.6,
-                    }}
-                  >
+                  <p style={{ fontSize: "0.8rem", color: "var(--color-muted)", lineHeight: 1.65 }}>
                     {cs.challenge}
                   </p>
 
-                  {/* Metrics */}
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
                     {cs.metrics.slice(0, 3).map((m) => (
                       <div
                         key={m.label}
                         style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          fontSize: "0.75rem",
-                          padding: "0.3rem 0",
+                          display: "flex", justifyContent: "space-between",
+                          fontSize: "0.75rem", padding: "0.35rem 0",
                           borderBottom: "1px solid var(--color-border)",
                         }}
                       >
@@ -545,7 +572,6 @@ export default function HomePage() {
                     ))}
                   </div>
 
-                  {/* Tags */}
                   <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", marginTop: "auto" }}>
                     {cs.tags.map((tag) => (
                       <span key={tag} className="tag-pill">{tag}</span>
@@ -556,9 +582,9 @@ export default function HomePage() {
             ))}
           </StaggerGrid>
 
-          <FadeIn style={{ textAlign: "center", marginTop: "3rem" }}>
+          <FadeIn style={{ textAlign: "center", marginTop: "3.5rem" }}>
             <Link href="/case-studies" className="btn-outline-orange">
-              View All Case Studies
+              View All Case Studies <ArrowRight size={14} />
             </Link>
           </FadeIn>
         </div>
@@ -574,16 +600,17 @@ export default function HomePage() {
         }}
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <FadeInUp style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+          <FadeInUp style={{ textAlign: "center", marginBottom: "2.75rem" }}>
             <span className="overline">Trusted By</span>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
-                fontWeight: 800,
+                fontSize: "clamp(1.6rem, 3vw, 2.25rem)",
+                fontWeight: 600,
                 marginTop: "0.75rem",
                 letterSpacing: "-0.02em",
                 color: "var(--color-text)",
+                fontStyle: "italic",
               }}
             >
               Brands That Trusted Us
@@ -591,25 +618,19 @@ export default function HomePage() {
           </FadeInUp>
 
           <FadeIn>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "0.75rem",
-                justifyContent: "center",
-              }}
-            >
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "center" }}>
               {clients.map((client) => (
                 <span
                   key={client}
                   style={{
                     background: "var(--color-surface)",
                     border: "1px solid var(--color-border-light)",
-                    padding: "0.5rem 1.1rem",
-                    fontSize: "0.78rem",
+                    padding: "0.5rem 1.25rem",
+                    fontSize: "0.75rem",
                     fontWeight: 600,
                     color: "var(--color-text-muted)",
-                    letterSpacing: "0.04em",
+                    letterSpacing: "0.06em",
+                    transition: "border-color 0.2s, color 0.2s",
                   }}
                 >
                   {client}
@@ -621,28 +642,32 @@ export default function HomePage() {
       </section>
 
       {/* ── Testimonials ──────────────────────────────── */}
-      <section style={{ padding: "6rem 1.5rem", background: "var(--color-bg)" }}>
+      <section style={{ padding: "7rem 1.5rem", background: "var(--color-bg)" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <FadeInUp style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <FadeInUp style={{ textAlign: "center", marginBottom: "3.5rem" }}>
             <span className="overline">Testimonials</span>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
-                fontWeight: 800,
-                marginTop: "0.75rem",
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                fontWeight: 700,
+                marginTop: "0.875rem",
                 letterSpacing: "-0.02em",
                 color: "var(--color-text)",
+                fontStyle: "italic",
               }}
             >
               What Our Clients Say
             </h2>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "1.25rem" }}>
+              <span className="orange-rule" />
+            </div>
           </FadeInUp>
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
               gap: "1.5rem",
             }}
           >
@@ -652,39 +677,40 @@ export default function HomePage() {
                   style={{
                     background: "var(--color-surface)",
                     border: "1px solid var(--color-border)",
-                    padding: "2rem",
+                    padding: "2.25rem",
                     height: "100%",
                   }}
                 >
                   <div
                     style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "3rem",
-                      fontWeight: 900,
+                      fontFamily: "var(--font-script)",
+                      fontSize: "3.5rem",
+                      fontWeight: 400,
                       color: "var(--color-orange)",
                       lineHeight: 0.8,
-                      marginBottom: "1rem",
-                      opacity: 0.8,
+                      marginBottom: "1.25rem",
+                      opacity: 0.7,
                     }}
                   >
                     &ldquo;
                   </div>
                   <p
                     style={{
-                      fontSize: "0.9rem",
+                      fontSize: "0.875rem",
                       color: "var(--color-text-muted)",
-                      lineHeight: 1.7,
-                      marginBottom: "1.25rem",
+                      lineHeight: 1.75,
+                      marginBottom: "1.5rem",
                       fontStyle: "italic",
+                      fontFamily: "var(--font-display)",
                     }}
                   >
                     {t.quote}
                   </p>
                   <div>
-                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--color-text)" }}>
+                    <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--color-text)", fontFamily: "var(--font-display)" }}>
                       {t.client}
                     </div>
-                    <div style={{ fontSize: "0.75rem", color: "var(--color-muted)" }}>{t.industry}</div>
+                    <div style={{ fontSize: "0.72rem", color: "var(--color-muted)", marginTop: "0.2rem" }}>{t.industry}</div>
                   </div>
                 </div>
               </FadeInUp>
@@ -696,7 +722,7 @@ export default function HomePage() {
       {/* ── Final CTA ─────────────────────────────────── */}
       <section
         style={{
-          padding: "6rem 1.5rem",
+          padding: "8rem 1.5rem",
           background: "var(--color-surface)",
           borderTop: "1px solid var(--color-border)",
           position: "relative",
@@ -706,44 +732,59 @@ export default function HomePage() {
       >
         <div
           style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
+            position: "absolute", top: "50%", left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "700px",
-            height: "400px",
-            background: "radial-gradient(ellipse, rgba(255,85,0,0.08) 0%, transparent 70%)",
+            width: "800px", height: "500px",
+            background: "radial-gradient(ellipse, rgba(255,85,0,0.07) 0%, transparent 65%)",
             pointerEvents: "none",
           }}
         />
-        <div style={{ position: "relative", maxWidth: "600px", margin: "0 auto" }}>
+        {/* Decorative script */}
+        <div
+          style={{
+            position: "absolute", bottom: "-5%", right: "-2%",
+            fontFamily: "var(--font-script)", fontSize: "22vw", fontWeight: 700,
+            color: "rgba(255,85,0,0.025)", lineHeight: 1,
+            pointerEvents: "none", userSelect: "none",
+          }}
+        >
+          scale.
+        </div>
+
+        <div style={{ position: "relative", maxWidth: "640px", margin: "0 auto" }}>
           <FadeInUp>
-            <span className="overline">Ready to Scale?</span>
+            <span className="script-label" style={{ display: "block", marginBottom: "1rem" }}>
+              Ready to Scale?
+            </span>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                fontWeight: 800,
-                lineHeight: 1.1,
+                fontSize: "clamp(2.25rem, 5vw, 4rem)",
+                fontWeight: 700,
+                lineHeight: 1.05,
                 letterSpacing: "-0.02em",
                 color: "var(--color-text)",
-                margin: "1rem 0 1.25rem",
+                margin: "0 0 1.5rem",
+                fontStyle: "italic",
               }}
             >
               Ready to Scale Your Brand?
             </h2>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem" }}>
+              <span className="orange-rule" />
+            </div>
             <p
               style={{
                 fontSize: "1rem",
                 color: "var(--color-text-muted)",
-                lineHeight: 1.7,
-                marginBottom: "2.5rem",
+                lineHeight: 1.75,
+                marginBottom: "3rem",
               }}
             >
               Join brands like Newturn, DS Pet, and Siddhohum who scaled with us. Let&apos;s build your success story.
             </p>
-            <Link href="/contact" className="btn-orange" style={{ fontSize: "0.85rem", padding: "1rem 2.5rem" }}>
-              Get A Free Consultation
+            <Link href="/contact" className="btn-orange" style={{ fontSize: "0.8rem", padding: "1.1rem 2.75rem" }}>
+              Get A Free Consultation <ArrowRight size={14} />
             </Link>
           </FadeInUp>
         </div>
