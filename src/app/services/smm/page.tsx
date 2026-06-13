@@ -6,9 +6,15 @@ import { FadeInUp, FadeInLeft, FadeInRight } from "@/components/shared/FadeInUp"
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";
 
 export const metadata: Metadata = {
-  title: "Social Media Marketing",
+  title: "Best SMM Services in Jaipur | Social Media Marketing | Bombaywala Marketing",
   description:
-    "Content strategy, Reels, carousels, influencer collabs — social media marketing that builds real audiences and drives enquiries.",
+    "Result-driven social media marketing in Jaipur. Reels, carousels, influencer collabs, Instagram & Facebook Ads. Jaipur-specific audience strategies that build real brands and drive enquiries.",
+  alternates: { canonical: "https://bombaywalamarketing.com/services/smm" },
+  openGraph: {
+    title: "Best SMM Services in Jaipur | Bombaywala Marketing",
+    description: "SMM agency in Jaipur specialising in creative content, paid social advertising, and influencer marketing.",
+    type: "website",
+  },
 };
 
 const service = marketingServices.find((s) => s.id === "smm")!;

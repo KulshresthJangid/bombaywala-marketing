@@ -6,9 +6,15 @@ import { FadeInUp, FadeIn } from "@/components/shared/FadeInUp";
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";
 
 export const metadata: Metadata = {
-  title: "Tech Services",
+  title: "Website Design & Development Services in Jaipur | Shopify | Bombaywala Marketing",
   description:
-    "Full-stack tech services — Shopify development, website development, app development, maintenance, and freelance projects.",
+    "Best website design services in Jaipur — Shopify development, WooCommerce, custom web & app development, landing pages and website redesign. Fast, mobile-friendly, SEO-optimised websites.",
+  alternates: { canonical: "https://bombaywalamarketing.com/services/tech" },
+  openGraph: {
+    title: "Website Design & Development in Jaipur | Bombaywala Marketing",
+    description: "Custom websites, Shopify stores and apps built for conversion. Expert web development team in Jaipur.",
+    type: "website",
+  },
 };
 
 const iconMap: Record<string, React.ElementType> = { Store, Globe, Smartphone, Wrench, Code2 };

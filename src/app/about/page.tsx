@@ -5,8 +5,15 @@ import { FadeInUp, FadeIn, FadeInLeft, FadeInRight } from "@/components/shared/F
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: "Jaipur's performance-first digital marketing agency — built on results, not promises.",
+  title: "About Bombaywala Marketing | Digital Marketing Agency Jaipur",
+  description:
+    "Bombaywala Marketing is Jaipur's performance-first digital marketing agency. Founded by Tushita Bombaywala — built on results, not promises. 54x ROAS, 586 leads at ₹12 CPL, ₹10L revenue.",
+  alternates: { canonical: "https://bombaywalamarketing.com/about" },
+  openGraph: {
+    title: "About Bombaywala Marketing | Jaipur's Performance-First Agency",
+    description: "Meet the team behind real results — Jaipur's most ROI-focused digital marketing agency.",
+    type: "website",
+  },
 };
 
 const team = [

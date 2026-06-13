@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { Metadata } from "next";
 import { siteConfig } from "@/lib/config";
 import { FadeInUp, FadeInLeft, FadeInRight } from "@/components/shared/FadeInUp";
 

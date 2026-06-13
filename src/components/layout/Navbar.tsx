@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -67,31 +68,15 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.625rem" }}>
-          <span
-            style={{
-              fontFamily: "var(--font-script)",
-              fontSize: "2.1rem",
-              fontWeight: 700,
-              color: "var(--color-orange)",
-              lineHeight: 1,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            bw
-          </span>
-          <span
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.58rem",
-              fontWeight: 700,
-              color: "var(--color-text-muted)",
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-            }}
-          >
-            BOMBAYWALA
-          </span>
+        <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
+          <Image
+            src="/bombaywala-logo.png"
+            alt="Bombaywala Marketing"
+            width={48}
+            height={48}
+            style={{ objectFit: "contain" }}
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -220,6 +205,7 @@ export default function Navbar() {
 
           {[
             { label: "Case Studies", href: "/case-studies" },
+            { label: "Blog", href: "/blog" },
             { label: "About", href: "/about" },
             { label: "Contact", href: "/contact" },
           ].map((link) => (
@@ -350,6 +336,7 @@ export default function Navbar() {
           </div>
           {[
             { label: "Case Studies", href: "/case-studies" },
+            { label: "Blog", href: "/blog" },
             { label: "About", href: "/about" },
             { label: "Contact", href: "/contact" },
           ].map((link) => (

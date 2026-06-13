@@ -6,9 +6,15 @@ import { FadeInUp, FadeInLeft, FadeInRight } from "@/components/shared/FadeInUp"
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";
 
 export const metadata: Metadata = {
-  title: "SEO Services",
+  title: "Best SEO Services in Jaipur | Bombaywala Marketing",
   description:
-    "White-hat SEO that ranks you on page 1. We ranked DS Pet for 25+ keywords and drove ₹9L in organic revenue.",
+    "White-hat SEO that ranks you on page 1. On-page SEO, Local SEO, Technical SEO & link building for Jaipur businesses. We ranked DS Pet for 25+ keywords and drove ₹9L in organic revenue.",
+  alternates: { canonical: "https://bombaywalamarketing.com/services/seo" },
+  openGraph: {
+    title: "Best SEO Services in Jaipur | Bombaywala Marketing",
+    description: "White-hat, data-driven SEO tailored for Jaipur businesses. Page-1 rankings, local SEO, and monthly reporting.",
+    type: "website",
+  },
 };
 
 const service = marketingServices.find((s) => s.id === "seo")!;

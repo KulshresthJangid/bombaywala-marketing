@@ -6,9 +6,15 @@ import { FadeInUp, FadeInLeft, FadeInRight } from "@/components/shared/FadeInUp"
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";
 
 export const metadata: Metadata = {
-  title: "Social Media Optimization",
+  title: "Best SMO Services in Jaipur | Social Media Optimisation | Bombaywala Marketing",
   description:
-    "Profile optimization, hashtag strategy, SEO-integrated content, and community building to grow your organic reach without burning ad budget.",
+    "SMO services in Jaipur — profile optimisation, hashtag strategy, SEO-integrated content, audience engagement and community building. Organic social growth without burning ad budget.",
+  alternates: { canonical: "https://bombaywalamarketing.com/services/smo" },
+  openGraph: {
+    title: "Best SMO Services in Jaipur | Bombaywala Marketing",
+    description: "Optimize your social profiles for search visibility and engagement. Expert SMO for Jaipur businesses.",
+    type: "website",
+  },
 };
 
 const service = marketingServices.find((s) => s.id === "smo")!;

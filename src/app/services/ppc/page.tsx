@@ -6,9 +6,15 @@ import { FadeInUp, FadeInLeft, FadeInRight } from "@/components/shared/FadeInUp"
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";
 
 export const metadata: Metadata = {
-  title: "PPC & Paid Ads",
+  title: "PPC Services in Jaipur | Google Ads & Meta Ads | Bombaywala Marketing",
   description:
-    "Google Ads, Meta Ads, and remarketing campaigns that deliver measurable ROI. 54x ROAS delivered for real clients.",
+    "Performance-driven PPC services in Jaipur. Google Ads, Meta Ads, remarketing and landing page optimisation. 54x ROAS delivered for Newturn Furniture. Book a free strategy call.",
+  alternates: { canonical: "https://bombaywalamarketing.com/services/ppc" },
+  openGraph: {
+    title: "PPC Services in Jaipur | Bombaywala Marketing",
+    description: "Certified Google Ads experts in Jaipur. Instant leads, transparent reporting, keyword-optimised campaigns.",
+    type: "website",
+  },
 };
 
 const service = marketingServices.find((s) => s.id === "ppc")!;

@@ -14,9 +14,15 @@ import { FadeInUp, FadeIn } from "@/components/shared/FadeInUp";
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";
 
 export const metadata: Metadata = {
-  title: "Marketing Services",
+  title: "Digital Marketing Services in Jaipur | Bombaywala Marketing",
   description:
-    "Full-service digital marketing — e-commerce growth, PPC, SEO, SMM, influencer marketing, and product photography.",
+    "Complete digital marketing services in Jaipur — ecommerce growth, PPC, SEO, social media marketing, influencer marketing and product photography. Performance-first, ROI-focused strategies.",
+  alternates: { canonical: "https://bombaywalamarketing.com/services/marketing" },
+  openGraph: {
+    title: "Digital Marketing Services in Jaipur | Bombaywala Marketing",
+    description: "Jaipur's performance-first digital marketing agency. PPC, SEO, SMM, ecommerce and more — all under one roof.",
+    type: "website",
+  },
 };
 
 const iconMap: Record<string, React.ElementType> = {

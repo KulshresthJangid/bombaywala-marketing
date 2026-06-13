@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Metadata } from "next";
 import { caseStudies } from "@/lib/config";
 import { FadeInUp, FadeIn } from "@/components/shared/FadeInUp";
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";

@@ -6,9 +6,15 @@ import { FadeInUp, FadeInLeft, FadeInRight } from "@/components/shared/FadeInUp"
 import { StaggerGrid, StaggerItem } from "@/components/shared/StaggerGrid";
 
 export const metadata: Metadata = {
-  title: "E-Commerce Marketing",
+  title: "Best E-Commerce Marketing Services in Jaipur | Bombaywala Marketing",
   description:
-    "Full-funnel e-commerce growth — Meta Ads, Google Ads, SEO, email automation, marketplace management. Real ROAS, real revenue.",
+    "Full-funnel ecommerce marketing in Jaipur — Meta Ads, Google Shopping, SEO, email automation, marketplace management on Amazon, Flipkart & Meesho. 200+ orders/month delivered.",
+  alternates: { canonical: "https://bombaywalamarketing.com/services/ecommerce-marketing" },
+  openGraph: {
+    title: "Best E-Commerce Marketing Services in Jaipur | Bombaywala Marketing",
+    description: "Scale your online store with ROI-focused ecommerce marketing. Shopify, WooCommerce, Amazon, Flipkart experts in Jaipur.",
+    type: "website",
+  },
 };
 
 const service = marketingServices.find((s) => s.id === "ecommerce-marketing")!;
