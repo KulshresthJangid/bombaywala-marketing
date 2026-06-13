@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/config";
 
@@ -87,30 +88,14 @@ export default function Footer() {
         <div className="footer-grid">
           {/* Brand + Contact */}
           <div>
-            <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1rem" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "2rem",
-                  fontWeight: 800,
-                  color: "var(--color-orange)",
-                  letterSpacing: "-0.03em",
-                }}
-              >
-                bw
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "0.6rem",
-                  fontWeight: 700,
-                  color: "var(--color-text)",
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                }}
-              >
-                BOMBAYWALA
-              </span>
+            <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+              <Image
+                src="/bombaywala-logo.png"
+                alt="Bombaywala Marketing"
+                width={64}
+                height={64}
+                style={{ objectFit: "contain" }}
+              />
             </Link>
             <p
               style={{
