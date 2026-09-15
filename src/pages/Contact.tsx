@@ -6,14 +6,35 @@ import { Button } from "@/components/ui/button";
 
 const SERVICES = ["E-Commerce Marketing","PPC / Paid Ads","Social Media Marketing","Social Media Optimization","SEO","Influencer Marketing","Product Photography","Shopify Development","Website Development","App Development","Tech Maintenance","Freelance / Custom Project"];
 
+const EMPTY_FORM = { name: "", email: "", phone: "", company: "", service: "", budget: "", message: "" };
+
 export default function Contact() {
   const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", service: "", budget: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState(EMPTY_FORM);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await new Promise(r => setTimeout(r, 600));
-    setSent(true);
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+      setSent(true);
+      setForm(EMPTY_FORM);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -86,7 +107,8 @@ export default function Contact() {
                     </select>
                   </div>
                   <div><label style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "hsl(var(--muted-foreground))", display: "block", marginBottom: "0.4rem" }}>Message *</label><textarea required className="form-input" rows={5} placeholder="Tell us about your goals..." value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} style={{ resize: "vertical" }} /></div>
-                  <Button type="submit" variant="orange" size="xl" className="rounded-full w-full mt-2">Send Message</Button>
+                  {error && <p style={{ fontSize: "0.82rem", color: "#f87171", lineHeight: 1.6 }}>{error}</p>}
+                  <Button type="submit" variant="orange" size="xl" className="rounded-full w-full mt-2" disabled={submitting}>{submitting ? "Sending..." : "Send Message"}</Button>
                 </form>
               )}
             </FadeInUp>
