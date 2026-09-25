@@ -20,7 +20,7 @@ export default function SEO({ title, description, canonical, ogImage, noIndex }:
       <title>{title}</title>
       <meta name="description" content={description} />
       {canonical && <link rel="canonical" href={url} />}
-      {noIndex && <meta name="robots" content="noindex, nofollow" />}
+      <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
 
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
