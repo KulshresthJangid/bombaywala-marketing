@@ -24,6 +24,8 @@ import EcommerceMarketing from "@/pages/services/EcommerceMarketing";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import Cookies from "@/pages/Cookies";
+import NotFound from "@/pages/NotFound";
+import RouteTracker from "@/components/shared/RouteTracker";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -35,6 +37,7 @@ function Layout() {
   return (
     <>
       <ScrollToTop />
+      <RouteTracker />
       <Navbar />
       <main>
         <Routes>
@@ -57,8 +60,9 @@ function Layout() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/cookies" element={<Cookies />} />
 
-          {/* Catch-all → home */}
-          <Route path="*" element={<Home />} />
+          {/* Unknown URLs → real Not Found page (noindex). Previously rendered
+              Home, which made every dead/old URL a soft-404 duplicate of "/". */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

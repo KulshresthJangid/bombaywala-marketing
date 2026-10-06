@@ -2,6 +2,14 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": null,
+  "redirects": [
+    { "source": "/pay-per-click", "destination": "/services/ppc", "permanent": true },
+    { "source": "/pay-per-click/", "destination": "/services/ppc", "permanent": true },
+    { "source": "/complete-digital-ervices", "destination": "/services/marketing", "permanent": true },
+    { "source": "/complete-digital-ervices/", "destination": "/services/marketing", "permanent": true },
+    { "source": "/shopify-seo-how-to-rank-your-store-on-google-fast", "destination": "/blog/shopify-seo-how-to-rank-your-store-on-google-fast", "permanent": true },
+    { "source": "/shopify-seo-how-to-rank-your-store-on-google-fast/", "destination": "/blog/shopify-seo-how-to-rank-your-store-on-google-fast", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]

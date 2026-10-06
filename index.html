@@ -11,7 +11,8 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-DCGYQ853NF');
+      // send_page_view:false — page views are sent per route by RouteTracker (SPA)
+      gtag('config', 'G-DCGYQ853NF', { send_page_view: false });
     </script>
 
     <!-- Primary SEO -->
